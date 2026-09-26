@@ -8,8 +8,13 @@
 @media(max-width:900px){.nav-links{display:none}.mobile-menu{display:inline-flex}.hero-grid{grid-template-columns:1fr;padding:70px 0}.hero-card{max-width:560px}.plan-grid,.products-grid{grid-template-columns:1fr}.results-grid{grid-template-columns:repeat(2,1fr)}.section-head{display:block}.section-head p{margin-top:16px}.discord-box{display:block}.discord-box .btn{margin-top:18px}.admin-shell{grid-template-columns:1fr}.sidebar{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line)}.side-nav{display:flex;overflow:auto}.sidebar-bottom{position:static;margin-top:16px}.admin-main{padding:22px}.dashboard-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.container{width:min(100% - 24px,1180px)}.hero h1{font-size:4rem}.hero-grid{gap:38px}.stats-row{grid-template-columns:1fr}.section{padding:72px 0}.results-grid{grid-template-columns:1fr}.discord-box{padding:30px}.footer-inner{display:block}.form-grid,.dashboard-grid{grid-template-columns:1fr}.admin-main{padding:16px}.card{padding:22px}}
 
+
+/* Language chooser */
+.language-box{display:flex;align-items:center;gap:8px;margin-left:auto;position:relative}.language-input{width:168px;background:#0b0b0b;color:#fff;border:1px solid #2b2b2b;border-radius:999px;padding:11px 14px;font:inherit;font-size:13px;outline:none;transition:.2s}.language-input:focus{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.08)}.language-btn{white-space:nowrap;padding:10px 14px;border-radius:999px;border:1px solid #fff;background:#fff;color:#000;font-weight:800;cursor:pointer}.language-btn:hover{transform:translateY(-1px)}.language-status{position:absolute;top:calc(100% + 8px);right:0;min-width:240px;background:#111;border:1px solid #2b2b2b;border-radius:12px;padding:9px 12px;color:#bdbdbd;font-size:12px;opacity:0;pointer-events:none;transform:translateY(-4px);transition:.2s;z-index:80}.language-status.show{opacity:1;transform:none}.google-translate-host{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}.goog-te-banner-frame.skiptranslate,.goog-te-gadget-icon{display:none!important}body{top:0!important}.skiptranslate iframe{display:none!important}
+@media(max-width:1020px){.nav-inner{flex-wrap:wrap}.language-box{order:4;width:100%;margin:10px 0 0}.language-input{flex:1;width:auto}.language-status{left:0;right:auto}.nav-links{margin-left:auto}}
+@media(max-width:680px){.language-box{gap:6px}.language-input{min-width:0}.language-btn{padding:10px 12px}.nav-links{width:100%;justify-content:center;order:3}.nav .btn#navDiscord{margin-left:auto}}
 </style></head><body>
-<header class="nav"><div class="container nav-inner"><a class="brand" href="#top"><span class="logo-symbol" aria-label="Logo Elite Academy"></span><span>ELITE ACADEMY</span></a><nav class="nav-links"><a href="#planos">Planos</a><a href="#produtos">Produtos</a><a href="#resultados">Resultados</a><a href="#discord">Discord</a></nav><a class="btn primary" id="navDiscord" target="_blank" rel="noopener">Entrar no Discord</a></div></header>
+<header class="nav"><div class="container nav-inner"><a class="brand" href="#top"><span class="logo-symbol" aria-label="Logo Elite Academy"></span><span>ELITE ACADEMY</span></a><nav class="nav-links"><a href="#planos">Planos</a><a href="#produtos">Produtos</a><a href="#resultados">Resultados</a><a href="#discord">Discord</a></nav><a class="btn primary" id="navDiscord" target="_blank" rel="noopener">Entrar no Discord</a><form class="language-box" id="languageForm"><label class="sr-only" for="languageInput">Idioma do site</label><input class="language-input" id="languageInput" list="languageSuggestions" autocomplete="off" placeholder="Digite o idioma…" aria-label="Digite o idioma desejado"><datalist id="languageSuggestions"><option value="Português"><option value="English"><option value="Español"><option value="Français"><option value="Deutsch"><option value="Italiano"><option value="日本語"><option value="한국어"><option value="中文"><option value="Русский"><option value="العربية"><option value="हिन्दी"></datalist><button class="language-btn" type="submit">Traduzir</button><span class="language-status" id="languageStatus" role="status"></span></form><div id="google_translate_element" class="google-translate-host" aria-hidden="true"></div></div></header>
 <main id="top"><section class="hero"><div class="container hero-grid"><div><span class="eyebrow" data-text="hero_badge">Treino inteligente. Evolução competitiva.</span><h1 data-text="hero_title">ELITE<br>ACADEMY</h1><p data-text="hero_subtitle">Conteúdo, análise e acompanhamento para quem quer evoluir no competitivo com método, consistência e leitura de jogo.</p><div class="hero-actions"><a class="btn primary" href="#planos" data-text="hero_primary_cta">Conhecer os planos</a><a class="btn ghost" id="heroDiscord" target="_blank" rel="noopener" data-text="hero_secondary_cta">Entrar no Discord</a></div></div><aside class="hero-card"><span class="hero-logo" aria-label="Elite Academy"></span><h3>Jogue com intenção.</h3><p>Estude seus erros, treine com objetivo e transforme cada sessão em progresso mensurável.</p><div class="stats-row"><div class="mini-stat"><b>Solo</b><span>planos individuais</span></div><div class="mini-stat"><b>Duo</b><span>evolução em dupla</span></div><div class="mini-stat"><b>Trio</b><span>trabalho coletivo</span></div></div></aside></div></section>
 <section class="section" id="planos"><div class="container"><div class="section-head"><h2 data-text="plans_title">Escolha seu nível de acompanhamento</h2><p data-text="plans_intro">Os planos da Elite Academy oferecem acesso a conteúdos e ferramentas exclusivas para ajudar você a evoluir no competitivo.</p></div><div class="tabs" id="planTabs"><button class="tab active" data-group="solo">Solo</button><button class="tab" data-group="duo">Duo</button><button class="tab" data-group="trio">Trio</button></div><div id="plansGrid" class="plan-grid"></div></div></section>
 <section class="section" id="produtos"><div class="container"><div class="section-head"><h2 data-text="products_title">Produtos avulsos</h2><p data-text="products_intro">Treinos, análises e acompanhamento pontual para acelerar pontos específicos da sua evolução.</p></div><div id="productsGrid" class="products-grid"></div></div></section>
@@ -18,6 +23,29 @@
 
 <div id="purchaseOverlay" class="purchase-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="purchaseTitle"><div class="purchase-panel"><button class="purchase-close" id="purchaseClose" type="button" aria-label="Fechar">×</button><div id="purchaseFormStep"><div class="purchase-brand"><span class="logo-symbol"></span><div><b>ELITE ACADEMY</b><div style="color:#777;font-size:.82rem">Solicitação de compra e resgate</div></div></div><h2 id="purchaseTitle">Confirme seus dados</h2><p>Preencha os dados abaixo. Eles serão enviados diretamente para o painel administrativo da Elite Academy.</p><div class="purchase-summary"><div><span>Você selecionou</span><b id="purchaseItem">—</b><span id="purchaseVariant"></span></div><div class="price" id="purchasePrice">R$ 0,00</div></div><form id="purchaseForm"><div class="purchase-fields"><div class="field"><label>Nome completo</label><input id="customerName" name="customer_name" autocomplete="name" minlength="3" maxlength="120" required></div><div class="field"><label>E-mail</label><input id="customerEmail" name="customer_email" type="email" autocomplete="email" maxlength="254" required></div><div class="field"><label>Número de telefone</label><input id="customerPhone" name="customer_phone" type="tel" autocomplete="tel" minlength="8" maxlength="30" placeholder="(31) 99999-9999" required></div></div><input id="websiteField" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true"><button class="btn primary purchase-submit" id="purchaseSubmit" type="submit">Registrar e continuar</button><p class="privacy-note">Seus dados são usados para identificar a solicitação e permitir o atendimento do resgate no Discord.</p></form></div><div id="purchaseComplete" class="purchase-complete hidden"><div class="success-icon"></div><span class="eyebrow">Solicitação registrada</span><h2>Agora abra seu ticket no Discord</h2><p>Copie a mensagem abaixo e envie no ticket. Ela informa exatamente o que você selecionou e ajuda a equipe a localizar seu pedido.</p><div class="purchase-code" id="purchaseCode">EA-00000000</div><div class="copybox" id="redemptionMessage"></div><div class="flow-actions"><button class="btn primary" id="copyMessageBtn" type="button">Copiar mensagem</button><a class="btn" id="purchaseDiscordBtn" target="_blank" rel="noopener">Abrir Discord</a><a class="btn ghost hidden" id="purchaseCheckoutBtn" target="_blank" rel="noopener">Abrir pagamento</a></div><p class="privacy-note">No Discord, abra um ticket e cole a mensagem copiada para resgatar seu plano ou produto.</p></div></div></div>
 <footer class="footer"><div class="container footer-inner"><span data-text="footer_text">Elite Academy • Evolução competitiva com método.</span><a class="admin-link" href="admin.html">Área administrativa</a></div></footer>
+<script>
+window.__eliteTranslateTries=0;
+window.applyEliteLanguage=function(code){
+  if(code==='pt'){
+    try{localStorage.setItem('elite_language_code','pt')}catch(e){}
+    document.cookie='googtrans=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+    if(location.hostname)document.cookie='googtrans=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain='+location.hostname;
+    location.reload();return;
+  }
+  const combo=document.querySelector('.goog-te-combo');
+  if(!combo){if(window.__eliteTranslateTries++<20)setTimeout(()=>window.applyEliteLanguage(code),300);return;}
+  combo.value=code;combo.dispatchEvent(new Event('change'));
+};
+window.initEliteTranslate=function(){
+  if(window.google&&google.translate&&google.translate.TranslateElement){
+    new google.translate.TranslateElement({pageLanguage:'pt',autoDisplay:false},'google_translate_element');
+    setTimeout(()=>{
+      let code='pt';try{code=localStorage.getItem('elite_language_code')||'pt'}catch(e){}
+      if(code!=='pt')window.applyEliteLanguage(code);
+    },500);
+  }
+};
+</script>
 <script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.57.4';
 const SUPABASE_URL = 'https://rtbempkgmiguaongajlj.supabase.co';
@@ -95,6 +123,38 @@ document.getElementById('purchaseForm').addEventListener('submit',async e=>{
 });
 document.getElementById('copyMessageBtn').addEventListener('click',async()=>{const txt=document.getElementById('redemptionMessage').textContent;try{await navigator.clipboard.writeText(txt);document.getElementById('copyMessageBtn').textContent='Mensagem copiada ✓';setTimeout(()=>document.getElementById('copyMessageBtn').textContent='Copiar mensagem',1800)}catch{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}});
 document.getElementById('planTabs').addEventListener('click',e=>{const b=e.target.closest('[data-group]');if(!b)return;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderPlans(b.dataset.group)});
+
+const languageAliases={
+ 'portugues':'pt','portuguese':'pt','pt':'pt','pt-br':'pt','brasil':'pt',
+ 'ingles':'en','english':'en','en':'en','en-us':'en','en-gb':'en',
+ 'espanhol':'es','espanol':'es','spanish':'es','es':'es',
+ 'frances':'fr','francais':'fr','french':'fr','fr':'fr',
+ 'alemao':'de','deutsch':'de','german':'de','de':'de',
+ 'italiano':'it','italian':'it','it':'it',
+ 'japones':'ja','日本語':'ja','japanese':'ja','ja':'ja',
+ 'coreano':'ko','한국어':'ko','korean':'ko','ko':'ko',
+ 'chines':'zh-CN','中文':'zh-CN','chinese':'zh-CN','zh':'zh-CN','zh-cn':'zh-CN',
+ 'russo':'ru','русский':'ru','russian':'ru','ru':'ru',
+ 'arabe':'ar','العربية':'ar','arabic':'ar','ar':'ar',
+ 'hindi':'hi','हिन्दी':'hi','hi':'hi','turco':'tr','turkish':'tr','tr':'tr',
+ 'holandes':'nl','dutch':'nl','nl':'nl','polones':'pl','polish':'pl','pl':'pl'
+};
+const normLang=v=>String(v||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+function showLanguageStatus(msg){const el=document.getElementById('languageStatus');el.textContent=msg;el.classList.add('show');clearTimeout(showLanguageStatus.t);showLanguageStatus.t=setTimeout(()=>el.classList.remove('show'),3500)}
+function findLanguageCode(input){
+ const n=normLang(input);if(languageAliases[n])return languageAliases[n];
+ const combo=document.querySelector('.goog-te-combo');
+ if(combo){for(const option of combo.options){if(normLang(option.textContent)===n||normLang(option.value)===n)return option.value}}
+ return null;
+}
+document.getElementById('languageForm').addEventListener('submit',e=>{
+ e.preventDefault();const raw=document.getElementById('languageInput').value.trim();if(!raw){showLanguageStatus('Digite um idioma, por exemplo: English ou Español.');return}
+ const code=findLanguageCode(raw);if(!code){showLanguageStatus('Não reconheci esse idioma. Tente o nome completo ou o código, como en, es, fr ou ja.');return}
+ try{localStorage.setItem('elite_language_code',code);localStorage.setItem('elite_language_name',raw)}catch(err){}
+ showLanguageStatus(code==='pt'?'Voltando para português…':'Traduzindo o site…');window.__eliteTranslateTries=0;window.applyEliteLanguage(code);
+});
+try{const savedName=localStorage.getItem('elite_language_name');if(savedName)document.getElementById('languageInput').value=savedName}catch(e){}
+
 load().catch(console.error);
 
-</script></body></html>
+</script><script src="https://translate.google.com/translate_a/element.js?cb=initEliteTranslate" async></script></body></html>
