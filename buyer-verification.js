@@ -8,6 +8,15 @@ export function createBuyerVerification(sb){
  <div class="flow-actions"><button type="button" class="btn primary" id="buyerLogin">Entrar</button><button type="button" class="btn ghost" id="buyerSignup">Criar conta</button><button type="button" class="btn ghost" id="buyerResend">Reenviar confirmação</button></div></div>
  <button type="button" id="buyerSwitch" class="btn ghost hidden">Trocar conta</button>`;
  $('purchaseForm').before(panel);
+ const emailHelp=document.createElement('small');emailHelp.id='buyerEmailHelp';
+ const emailAction=document.createElement('button');emailAction.type='button';emailAction.className='btn ghost';emailAction.textContent='Entrar ou confirmar e-mail';
+ $('customerEmail').after(emailHelp,emailAction);$('customerEmail').setAttribute('aria-describedby','buyerEmailHelp');
+ $('customerEmail').addEventListener('input',()=>{$('buyerLoginEmail').value=$('customerEmail').value});
+ $('buyerLoginEmail').addEventListener('input',()=>{if(!$('customerEmail').readOnly)$('customerEmail').value=$('buyerLoginEmail').value});
+ emailAction.addEventListener('click',async()=>{
+  if($('customerEmail').readOnly)await sb.auth.signOut();
+  await syncAccount();$('buyerLoginEmail').scrollIntoView({block:'center'});$('buyerLoginEmail').focus();
+ });
  const notice=document.createElement('p');notice.id='buyerNotice';notice.className='privacy-note';notice.setAttribute('role','status');notice.setAttribute('aria-live','polite');$('purchaseSubmit').before(notice);
  let config=null,busy=false,resendAt=0;
  const availability=fetch(endpoint,{signal:AbortSignal.timeout(8000)}).then(r=>{if(!r.ok)throw new Error();return r.json()}).then(c=>config=c).catch(()=>null);
@@ -17,7 +26,11 @@ export function createBuyerVerification(sb){
   const verified=!error&&user?.email_confirmed_at&&!user.is_anonymous;
   $('buyerLoginFields').classList.toggle('hidden',!!verified);$('buyerSwitch').classList.toggle('hidden',!verified);
   $('buyerAccountStatus').textContent=verified?'E-mail confirmado: '+user.email:'Entre ou crie sua conta e confirme o link recebido por e-mail. A compra fica vinculada a essa conta.';
-  $('customerEmail').readOnly=true;$('customerEmail').value=verified?user.email:'';
+  $('customerEmail').readOnly=!!verified;
+  if(verified)$('customerEmail').value=user.email;
+  else $('customerEmail').value=$('buyerLoginEmail').value||$('customerEmail').value;
+  emailHelp.textContent=verified?'Este é o e-mail confirmado que receberá o acesso. Para usar outro, troque a conta.':'Digite seu e-mail e entre ou crie sua conta na etapa 1 para confirmá-lo.';
+  emailAction.textContent=verified?'Trocar conta / e-mail':'Entrar ou confirmar e-mail';
   return verified?user:null;
  }
  async function accountAction(action){
