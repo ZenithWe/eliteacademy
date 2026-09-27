@@ -1,0 +1,9 @@
+project_id = "rtbempkgmiguaongajlj"
+
+[functions.elite-mp-checkout]
+# GET exposes availability only. Every POST explicitly validates the user JWT.
+verify_jwt = false
+
+[functions.elite-mp-webhook]
+# Provider notifications use their own HMAC authentication.
+verify_jwt = false

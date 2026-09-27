@@ -26,7 +26,7 @@
 <section class="admin-section" id="section-subscriptions"><div class="panel"><div class="panel-head"><div><h2>Assinaturas</h2><p class="small-muted">Controle vencimentos, uso dos benefícios e renovações.</p></div><button class="btn primary" id="newSubscriptionBtn">+ Nova assinatura</button></div><div class="table-wrap"><table class="table"><thead><tr><th>Cliente</th><th>Plano</th><th>Período</th><th>Saldo</th><th>Status</th><th>Ações</th></tr></thead><tbody id="subscriptionsTable"></tbody></table></div></div><div class="panel hidden" id="subscriptionEditor"></div></section>
 <section class="admin-section" id="section-resources"><div class="panel"><div class="panel-head"><div><h2>Conteúdos e PDFs</h2><p class="small-muted">Publique materiais por nível de plano. Starter=1, Pro=2, Champion=3, Master=4.</p></div><button class="btn primary" id="newResourceBtn">+ Novo conteúdo</button></div><div id="resourcesAdmin"></div></div><div class="panel hidden" id="resourceEditor"></div></section>
 <section class="admin-section" id="section-faqs"><div class="panel"><div class="panel-head"><h2>Perguntas frequentes</h2><button class="btn primary" id="newFaqBtn">+ Nova pergunta</button></div><div id="faqsAdmin"></div></div><div class="panel hidden" id="faqEditor"></div></section>
-<section class="admin-section" id="section-settings"><div class="panel"><div class="panel-head"><h2>Configurações</h2><button class="btn primary" id="saveSettingsBtn">Salvar</button></div><div id="settingsForm" class="form-grid"></div><div class="panel" style="margin-top:20px"><h3>Logo / imagem principal</h3><div class="form-grid"><div class="field full"><label>Enviar imagem</label><input type="file" id="logoFile" accept="image/*"></div><div class="field full"><button class="btn" id="uploadLogoBtn">Enviar e usar como logo</button></div></div></div></div></section>
+<section class="admin-section" id="section-settings"><div class="panel"><div class="panel-head"><h2>Configurações</h2><button class="btn primary" id="saveSettingsBtn">Salvar</button></div><div id="settingsForm" class="form-grid"></div><div class="panel" style="margin-top:20px"><h3>Mercado Pago</h3><p id="mpAdminStatus">Verificando disponibilidade…</p><p>As credenciais ficam protegidas nos segredos do servidor. Nunca salve tokens nos campos de configuração acima.</p><a class="btn" href="https://supabase.com/dashboard/project/rtbempkgmiguaongajlj/functions/secrets" target="_blank" rel="noopener">Configurar credenciais</a> <a class="btn" href="https://github.com/ZenithWe/eliteacademy/blob/main/PAGAMENTOS.md" target="_blank" rel="noopener">Guia de ativação</a></div><div class="panel" style="margin-top:20px"><h3>Logo / imagem principal</h3><div class="form-grid"><div class="field full"><label>Enviar imagem</label><input type="file" id="logoFile" accept="image/*"></div><div class="field full"><button class="btn" id="uploadLogoBtn">Enviar e usar como logo</button></div></div></div></div></section>
 </main></div><div id="toast" class="toast hidden"></div><script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.57.4';
 const SUPABASE_URL = 'https://rtbempkgmiguaongajlj.supabase.co';
@@ -99,4 +99,9 @@ sbx.auth.onAuthStateChange(()=>setTimeout(loadExt,50));
 const timer=setInterval(()=>{if(!document.getElementById('adminView')?.classList.contains('hidden')){clearInterval(timer);loadExt()}},250);
 </script>
 
-</body></html>
+<script>
+fetch('https://rtbempkgmiguaongajlj.supabase.co/functions/v1/elite-mp-checkout')
+.then(r=>{if(!r.ok)throw new Error();return r.json()})
+.then(d=>document.getElementById('mpAdminStatus').textContent=d.enabled?'Checkout automático habilitado.':'Integração instalada. Cobranças automáticas desativadas; aguardando configuração e teste.')
+.catch(()=>document.getElementById('mpAdminStatus').textContent='Não foi possível consultar o pagamento automático agora.');
+</script></body></html>
