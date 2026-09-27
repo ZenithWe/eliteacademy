@@ -82,8 +82,8 @@ export function createBuyerVerification(sb){
   $('buyerExtendedVerification').classList.toggle('hidden',!strict);
   $('birthDateField').classList.toggle('hidden',!strict);$('customerBirthdate').required=strict;
   $('verificationConsent').required=strict;
-  $('cpfHelp').textContent=strict?'Informe seus próprios dados para conferência cadastral.':'Os dígitos do CPF serão conferidos. A consulta à Receita ainda não está ativa.';
-  $('phoneHelp').textContent=strict?'Confirme o código recebido neste celular. Números virtuais não são aceitos.':'Informe seu celular com DDD. A confirmação por SMS ainda não está ativa.';
+  $('cpfHelp').textContent=strict?'Informe seus próprios dados para conferência cadastral.':'';
+  $('phoneHelp').textContent=strict?'Confirme o código recebido neste celular. Números virtuais não são aceitos.':'';
   validate();
  }
  async function beforeSubmit(data){
