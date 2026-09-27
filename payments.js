@@ -57,7 +57,7 @@ export function createPayments(sb) {
       const {data:{session}}=await sb.auth.getSession();
       if(!session){document.getElementById('purchaseClose').click();location.hash='aluno';document.getElementById('studentNotice').textContent='Entre ou crie sua conta e depois selecione o plano para assinar.';return true;}
       const result=await call({action:'checkout',plan_id:item.item_id,
-        customer_name:data.customer_name,customer_phone:data.customer_phone,
+        customer_name:data.customer_name,customer_phone:data.customer_phone,customer_cpf:data.customer_cpf,customer_birthdate:data.customer_birthdate,terms_consent:document.getElementById('termsConsent').checked,
         privacy_consent:document.getElementById('privacyConsent').checked && document.getElementById('termsConsent').checked,
         recurring_consent:document.getElementById('mpRecurringConsent').checked});
       const url=allowedUrl(result.checkout_url);

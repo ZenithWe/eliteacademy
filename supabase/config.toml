@@ -7,3 +7,7 @@ verify_jwt = false
 [functions.elite-mp-webhook]
 # Provider notifications use their own HMAC authentication.
 verify_jwt = false
+
+# Public GET exposes availability only; every POST validates the user with Auth.
+[functions.elite-buyer-verification]
+verify_jwt = false

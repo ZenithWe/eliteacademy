@@ -1,3 +1,4 @@
+import {validateBuyer} from '../_shared/identity.ts';
 import {cors,db,env,HttpError,json,mp,processInvoice,ready,safeCheckout,site,syncPreapproval} from '../_shared/mp.ts';
 
 Deno.serve(async (req: Request) => {
@@ -32,6 +33,7 @@ Deno.serve(async (req: Request) => {
     }
     if(body.action!=='checkout') throw new HttpError(400,'Operação inválida.');
     if(!ready()) throw new HttpError(503,'Pagamento automático ainda não está disponível.');
+    const buyer=await validateBuyer(user,body);
     if(body.privacy_consent!==true || body.recurring_consent!==true) throw new HttpError(400,'Confirme os termos e a cobrança mensal.');
     if(!/^[0-9a-f-]{36}$/.test(body.plan_id || '')) throw new HttpError(400,'Plano inválido.');
     if(current) {
@@ -42,16 +44,14 @@ Deno.serve(async (req: Request) => {
     const plans = await db(`elite_plans?id=eq.${body.plan_id}&active=eq.true&select=*`);
     const plan = plans[0];
     if(!plan || !(Number(plan.price_monthly)>0)) throw new HttpError(400,'Plano indisponível.');
-    const name = String(body.customer_name || '').trim();
-    const phone = String(body.customer_phone || '').trim();
-    if(name.length<3 || name.length>120 || phone.length<8 || phone.length>30) throw new HttpError(400,'Confira seu nome e telefone.');
+    const name=buyer.name,phone=buyer.phone;
     const recent = await db(`elite_mp_checkouts?user_id=eq.${user.id}&created_at=gte.${encodeURIComponent(new Date(Date.now()-3600000).toISOString())}&select=id&limit=6`);
     if(recent.length>=5) throw new HttpError(429,'Muitas tentativas. Aguarde antes de iniciar outra assinatura.');
     [current] = await db('elite_mp_checkouts','POST',{
       user_id:user.id,plan_id:plan.id,plan_name:plan.name,amount:plan.price_monthly,
       plan_level:plan.plan_level,vod_quota:plan.vod_quota,coach_quota:plan.coach_quota,
       live_coach_quota:plan.live_coach_quota,customer_name:name,customer_email:user.email,
-      customer_phone:phone,consent_version:'2026-09-27-mp',
+      customer_phone:phone,customer_cpf_last4:buyer.cpf.slice(-4),identity_level:buyer.level,consent_version:'2026-09-27-identity',
     });
     // Do not blindly retry this POST. A timeout may have created a subscription.
     // The unique open checkout remains locked for support reconciliation.
